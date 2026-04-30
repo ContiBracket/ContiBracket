@@ -8,11 +8,11 @@
     "status": "completed"
   },
   {
-    "content": "Phase 2: comprehensive E2E test via testing_agent_v3",
-    "status": "in_progress"
+    "content": "Phase 2: comprehensive E2E test via testing_agent_v3 (57/57 passed)",
+    "status": "completed"
   },
   {
     "content": "Phase 3: write GitHub Pages deploy guide + final polish",
-    "status": "pending"
+    "status": "completed"
   }
 ]
