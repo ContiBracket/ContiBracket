@@ -221,8 +221,16 @@ NODE_PATH=/app/frontend/node_modules node /app/poc/test_core.js
 
 - Live admin dashboard updates use a 4-second poll. If you want push-style realtime (a.k.a. votes appearing instantly on the TV), enable Supabase Realtime on `votes` and `matches` tables (commented snippet at the bottom of `supabase_schema.sql`).
 - `participant_link_token` column exists in the schema but is unused (the slug is the link). Reserved for future per-link tokens.
-- Office Drama Mode toggle exists in Settings but the per-matchup spotlight reveal is currently rendered as the standard winner glow (no extra spotlight overlay). Easy to extend later.
 - The PIN is shipped in the bundle (it's office-only by your choice). To rotate, set `REACT_APP_ADMIN_PIN` and redeploy.
+
+## 6.1 Office Drama Mode 🎭
+
+Toggle it in **Settings → "Office Drama Mode"**. When on:
+- The **TV display** detects newly-completed matches on each 5-second poll.
+- Instead of all winners popping in at once, it **reveals them one matchup at a time** with a top banner ("Drama Mode • Round 2 • Reveal 3 of 5"), spotlight glow on the winner, the loser fading to grayscale, and a "X advances ✨" banner at the bottom.
+- Each reveal lasts ~1.9s (snaps shorter for `prefers-reduced-motion`).
+- After all reveals finish, the TV resumes the normal animated bracket.
+- Already-revealed match IDs are remembered in the TV browser's `localStorage`, so refreshing the TV won't re-play history. Toggling drama mode off and back on **does not** replay past rounds — only future round closures.
 
 ---
 

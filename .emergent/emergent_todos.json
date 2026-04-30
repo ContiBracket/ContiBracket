@@ -1,18 +1,22 @@
 [
   {
-    "content": "Phase 1: POC — schema + bracket engine + Supabase round-trip",
+    "content": "Phase 1: POC",
     "status": "completed"
   },
   {
-    "content": "Phase 2: V1 frontend (Landing, Player, Admin, TV) built and smoke-tested E2E",
+    "content": "Phase 2: V1 frontend",
     "status": "completed"
   },
   {
-    "content": "Phase 2: comprehensive E2E test via testing_agent_v3 (57/57 passed)",
+    "content": "Phase 2: 57/57 E2E tests passed",
     "status": "completed"
   },
   {
-    "content": "Phase 3: write GitHub Pages deploy guide + final polish",
+    "content": "Phase 3: GH Pages deploy guide",
+    "status": "completed"
+  },
+  {
+    "content": "Phase 4: Office Drama Mode (spotlight reveal overlay on TV)",
     "status": "completed"
   }
 ]
