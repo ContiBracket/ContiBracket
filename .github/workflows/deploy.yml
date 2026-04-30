@@ -17,19 +17,41 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Auto-detect frontend dir (handles both root-level and ./frontend layouts)
     steps:
       - uses: actions/checkout@v4
+
+      - name: Locate frontend directory
+        id: locate
+        run: |
+          if [ -f "frontend/package.json" ]; then
+            echo "dir=frontend" >> "$GITHUB_OUTPUT"
+          elif [ -f "package.json" ]; then
+            echo "dir=." >> "$GITHUB_OUTPUT"
+          elif [ -f "app/frontend/package.json" ]; then
+            echo "dir=app/frontend" >> "$GITHUB_OUTPUT"
+          else
+            echo "Could not find a package.json. Repo structure:" >&2
+            ls -la >&2
+            exit 1
+          fi
+          echo "Found frontend at: $(cat $GITHUB_OUTPUT)"
 
       - uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: yarn
-          cache-dependency-path: frontend/yarn.lock
 
       - name: Install deps
         run: |
-          cd frontend
-          yarn install --frozen-lockfile
+          cd "${{ steps.locate.outputs.dir }}"
+          if [ -f yarn.lock ]; then
+            corepack enable
+            yarn install --frozen-lockfile
+          else
+            echo "No yarn.lock — doing a loose yarn install"
+            corepack enable
+            yarn install
+          fi
 
       - name: Build
         env:
@@ -39,19 +61,20 @@ jobs:
           REACT_APP_SUPABASE_ANON_KEY: ${{ secrets.REACT_APP_SUPABASE_ANON_KEY }}
           REACT_APP_ADMIN_PIN: ${{ secrets.REACT_APP_ADMIN_PIN }}
         run: |
-          cd frontend
+          cd "${{ steps.locate.outputs.dir }}"
           yarn build
-          # make sure GH Pages doesn't try to run Jekyll over our build
           touch build/.nojekyll
-          # HashRouter means / is the only real route; this 404 fallback
-          # handles the rare case where someone hits /something-static.
           cp build/index.html build/404.html
+
+      - name: Show build output
+        run: |
+          ls -la "${{ steps.locate.outputs.dir }}/build" | head -20
 
       - uses: actions/configure-pages@v5
 
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: frontend/build
+          path: ${{ steps.locate.outputs.dir }}/build
 
   deploy:
     needs: build
