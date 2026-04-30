@@ -1,0 +1,54 @@
+[
+  {
+    "content": "Phase 1: Get Supabase integration playbook",
+    "status": "in_progress"
+  },
+  {
+    "content": "Phase 1: Create supabase_schema.sql with all tables, RLS, indexes",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 1: Create POC script (bracket gen + Supabase insert/vote/advance) and pass for N=2,5,7,10,13,19",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 2: Get design guidelines from design_agent",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 2: Frontend scaffolding (HashRouter, Supabase client, local identity)",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 2: Player flow (login → predict → vote → bracket → waiting → winner)",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 2: Admin flow (PIN gate, dashboard, game create/manage, controls)",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 2: E2E testing via testing_agent_v3",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 3: Admin quality (emails, BCC, tie resolution, resets, merge)",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 3: Visual polish (theme editor, animations, confetti, TV mode)",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 3: Nice-to-haves (upsets, stats, CSV export)",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 3: E2E testing via testing_agent_v3",
+    "status": "pending"
+  },
+  {
+    "content": "Phase 4: Edge cases, audit log, deployment instructions, final test",
+    "status": "pending"
+  }
+]
