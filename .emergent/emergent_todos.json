@@ -1,19 +1,19 @@
 [
   {
     "content": "Phase 1: Get Supabase integration playbook",
-    "status": "in_progress"
+    "status": "completed"
   },
   {
     "content": "Phase 1: Create supabase_schema.sql with all tables, RLS, indexes",
-    "status": "pending"
+    "status": "completed"
   },
   {
     "content": "Phase 1: Create POC script (bracket gen + Supabase insert/vote/advance) and pass for N=2,5,7,10,13,19",
-    "status": "pending"
+    "status": "completed"
   },
   {
     "content": "Phase 2: Get design guidelines from design_agent",
-    "status": "pending"
+    "status": "in_progress"
   },
   {
     "content": "Phase 2: Frontend scaffolding (HashRouter, Supabase client, local identity)",
