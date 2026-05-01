@@ -128,30 +128,30 @@ export function BracketView({
   const COL_W = compact ? 240 : 280;
   const GAP_X = 44;
 
-  return (
+return (
+  <div
+    data-testid="bracket-view"
+    ref={(node) => {
+      wrapRef.current = node;
+      if (exportRef) {
+        if (typeof exportRef === 'function') exportRef(node);
+        else exportRef.current = node;
+      }
+    }}
+    className="cb-scroll relative w-full max-w-none overflow-auto pb-4"
+    style={{
+      minHeight: '75vh',
+      height: '75vh',
+    }}
+  >
     <div
-      data-testid="bracket-view"
-      ref={(node) => {
-        wrapRef.current = node;
-        if (exportRef) {
-          if (typeof exportRef === 'function') exportRef(node);
-          else exportRef.current = node;
-        }
+      className="relative flex items-stretch px-6 py-8"
+      style={{
+        width: 'max-content',
+        minWidth: `${rounds.length * (COL_W + GAP_X)}px`,
+        columnGap: GAP_X,
       }}
-      className="cb-scroll relative w-full max-w-none overflow-auto pb-4"
-style={{
-  minHeight: '75vh',
-  height: '75vh',
-}}
     >
-      <div
-  className="relative flex items-stretch px-6 py-8"
-  style={{
-    width: 'max-content',
-    minWidth: `${rounds.length * (COL_W + GAP_X)}px`,
-    columnGap: GAP_X,
-  }}
->
         {/* SVG connectors overlay */}
         <svg
           className="pointer-events-none absolute inset-0"
