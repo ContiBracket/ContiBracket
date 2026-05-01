@@ -18,7 +18,7 @@ export default function Landing() {
             className="inline-flex items-center gap-2 rounded-full border border-[color:var(--cb-border)] bg-[color:var(--cb-card)] px-3 py-1 text-xs text-[color:var(--cb-muted)]"
           >
             <Sparkles className="w-3 h-3 text-[color:var(--cb-accent)]" />
-            Office tournament night
+            Office tournament
           </motion.div>
 
           <motion.h1
