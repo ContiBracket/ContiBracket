@@ -26,8 +26,9 @@ import {
   updateGame, deleteGame, listPredictions, listPrivateInfoMap,
 } from '@/lib/db';
 import { generateRound1, advanceRound, closeRoundAndTally, loadBracketData } from '@/lib/bracketService';
-import { Copy, Tv, Lock, Play, Pause, Square, RefreshCw, Trash2, ArrowRight, Crown, Settings as SettingsIcon } from 'lucide-react';
+import { Copy, Tv, Lock, Play, Pause, Square, RefreshCw, Trash2, ArrowRight, Crown, Settings as SettingsIcon, Camera } from 'lucide-react';
 import { toast } from 'sonner';
+import { toPng } from 'html-to-image';
 
 import AdminItemsTab from '@/components/admin/AdminItemsTab';
 import AdminParticipantsTab from '@/components/admin/AdminParticipantsTab';
@@ -50,6 +51,35 @@ export default function AdminGameManager() {
   const [busy, setBusy] = useState(false);
   const [seedingMode, setSeedingMode] = useState('order');
   const [tab, setTab] = useState('overview');
+  const bracketExportRef = React.useRef(null);
+
+  async function exportBracketPhoto() {
+    const node = bracketExportRef.current;
+    if (!node) { toast.error('No bracket to export yet'); return; }
+    try {
+      toast.message('Rendering bracket image…');
+      // Unset container's horizontal scroll so the full bracket is rendered.
+      const prevOverflow = node.style.overflow;
+      const prevWidth = node.style.width;
+      node.style.overflow = 'visible';
+      node.style.width = `${node.scrollWidth}px`;
+      const dataUrl = await toPng(node, {
+        pixelRatio: 2,
+        backgroundColor: getComputedStyle(document.documentElement).getPropertyValue('--cb-bg').trim() || '#070A12',
+        cacheBust: true,
+        style: { overflow: 'visible' },
+      });
+      node.style.overflow = prevOverflow;
+      node.style.width = prevWidth;
+      const a = document.createElement('a');
+      a.href = dataUrl;
+      a.download = `${game?.slug || 'bracket'}-${new Date().toISOString().replace(/[:.]/g, '-').slice(0, 16)}.png`;
+      a.click();
+      toast.success('Bracket image downloaded');
+    } catch (e) {
+      toast.error('Export failed: ' + (e.message || 'unknown'));
+    }
+  }
 
   useEffect(() => {
     if (!isAdminUnlocked()) { nav('/admin', { replace: true }); return; }
@@ -306,12 +336,18 @@ export default function AdminGameManager() {
                       </div>
                     </GlowCard>
                   )}
+                  <div className="flex justify-end">
+                    <BigCTAButton variant="secondary" onClick={exportBracketPhoto} testId="overview-export-photo-button">
+                      <Camera className="w-4 h-4" /> Export bracket as image
+                    </BigCTAButton>
+                  </div>
                   <BracketView
                     matches={matches}
                     itemsById={itemsById}
                     votesByMatch={votesByMatch}
                     showVotePercents
                     finalWinnerId={game.winner_item_id}
+                    exportRef={bracketExportRef}
                   />
                 </div>
               )}

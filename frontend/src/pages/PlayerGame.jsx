@@ -195,7 +195,7 @@ export default function PlayerGame() {
                   autoFocus
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  placeholder="Aidan Carter"
+                  placeholder="First Last"
                   className="bg-[color:var(--cb-card-2)] border-[color:var(--cb-border)] text-[color:var(--cb-text)] focus-visible:ring-[color:var(--cb-ring)]"
                 />
                 <BigCTAButton type="submit" testId="player-join-button" className="mt-2">Join ContiBracket</BigCTAButton>

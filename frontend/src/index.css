@@ -104,7 +104,8 @@ html, body, #root {
 }
 
 /* Bracket SVG line glow */
-.cb-line { stroke: var(--cb-bracket-line); stroke-width: 2; fill: none; filter: drop-shadow(0 0 10px rgba(77,163,255,0.18)); }
+.cb-line { stroke: var(--cb-bracket-line); stroke-width: 2; fill: none; filter: drop-shadow(0 0 10px rgba(77,163,255,0.18)); stroke-linecap: round; stroke-linejoin: round; }
+.cb-line--winner { stroke: var(--cb-winner); stroke-width: 2.5; filter: drop-shadow(0 0 12px rgba(46,242,179,0.35)); }
 
 /* Pulse for waiting state */
 @keyframes cb-pulse {
