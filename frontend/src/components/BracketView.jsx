@@ -138,14 +138,20 @@ export function BracketView({
           else exportRef.current = node;
         }
       }}
-      className="cb-scroll relative w-full overflow-x-auto pb-4"
-      // Give the bracket breathing room vertically so justify-around has something to work with
-      style={{ minHeight: Math.max(320, rounds.length * 90) }}
+      className="cb-scroll relative w-full max-w-none overflow-auto pb-4"
+style={{
+  minHeight: '75vh',
+  height: '75vh',
+}}
     >
       <div
-        className="relative flex items-stretch"
-        style={{ minWidth: 'max-content', columnGap: GAP_X }}
-      >
+  className="relative flex items-stretch px-6 py-8"
+  style={{
+    width: 'max-content',
+    minWidth: `${rounds.length * (COL_W + GAP_X)}px`,
+    columnGap: GAP_X,
+  }}
+>
         {/* SVG connectors overlay */}
         <svg
           className="pointer-events-none absolute inset-0"
