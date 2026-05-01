@@ -67,6 +67,7 @@ export default function PlayerGame() {
 
   // Voting state
   const [voteIdx, setVoteIdx] = useState(0);
+  const [activeTab, setActiveTab] = useState('vote');
 
   useEffect(() => {
     if (!game || !player) return;
@@ -349,8 +350,8 @@ export default function PlayerGame() {
     <div className="min-h-screen flex flex-col">
       <TopBar subtitle={game.title} />
       <main className="flex-1 px-4 sm:px-6 pb-12">
-        <div className="mx-auto max-w-[860px]">
-          <Tabs defaultValue="vote" className="w-full">
+        <div className={activeTab === 'bracket' ? "w-full max-w-none" : "mx-auto max-w-[860px]"}>
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="bg-[color:var(--cb-card-2)] border border-[color:var(--cb-border)]">
               <TabsTrigger value="vote" data-testid="tab-vote">Vote</TabsTrigger>
               <TabsTrigger value="bracket" data-testid="tab-bracket">Bracket</TabsTrigger>
@@ -396,7 +397,7 @@ export default function PlayerGame() {
               )}
             </TabsContent>
 
-            <TabsContent value="bracket" className="pt-4">
+            <TabsContent value="bracket" className="pt-4 w-full">
               <BracketView
                 matches={matches}
                 itemsById={itemsById}
